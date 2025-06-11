@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Tickets - Railway Ticket Booking</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="nav">
+        <a href="dashboard.html">Home</a>
+        <a href="book-ticket.html">Book Ticket</a>
+        <a href="view-tickets.html">View Tickets</a>
+        <a href="update-profile.html">Update Profile</a>
+        <a href="#" id="logoutBtn">Logout</a>
+    </nav>
+
+    <div class="container">
+        <h1>Your Booked Tickets</h1>
+        
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ticket ID</th>
+                        <th>Train ID</th>
+                        <th>Boarding Station</th>
+                        <th>Destination Station</th>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Number of Tickets</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="ticketsTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Cancel Ticket Confirmation Modal -->
+    <div id="cancelModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Cancel Ticket</h2>
+            <p>Are you sure you want to cancel this ticket?</p>
+            <div class="modal-buttons">
+                <button id="confirmCancel">Yes, Cancel</button>
+                <button id="cancelCancel">No, Keep Ticket</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/view-tickets.js"></script>
+</body>
+</html> 

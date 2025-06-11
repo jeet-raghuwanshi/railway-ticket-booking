@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Train - Railway Ticket Booking</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="nav">
+        <a href="dashboard.html">Home</a>
+        <a href="register-train.html">Register Train</a>
+        <a href="profile.html">Profile</a>
+        <a href="#" id="logoutBtn">Logout</a>
+    </nav>
+
+    <div class="container">
+        <h1>Register New Train</h1>
+        
+        <div class="card">
+            <form id="registerTrainForm">
+                <div class="form-group">
+                    <label for="trainName">Train Name:</label>
+                    <input type="text" id="trainName" name="trainName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="numSeats">Number of Seats:</label>
+                    <input type="number" id="numSeats" name="numSeats" min="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fromStation">From Station:</label>
+                    <input type="text" id="fromStation" name="fromStation" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="toStation">To Station:</label>
+                    <input type="text" id="toStation" name="toStation" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ownership">Train Ownership:</label>
+                    <input type="text" id="ownership" name="ownership" required>
+                </div>
+                
+                <button type="submit">Register Train</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Registered Trains</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Train Name</th>
+                        <th>Number of Seats</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Ownership</th>
+                    </tr>
+                </thead>
+                <tbody id="trainsTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../js/register-train.js"></script>
+</body>
+</html> 
