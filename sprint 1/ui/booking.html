@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Ticket - Railway Ticket Booking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Railway Ticket Booking</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="train-search.html">Train Search and Seat Availability</a></li>
+                <li><a href="booking-history.html">Booking History</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Ticket Booking</h1>
+        <section id="booking-details">
+            <h2>Selected Train</h2>
+            <div id="selected-train-info">
+                <!-- Selected train details will be dynamically injected here -->
+                <p><strong>Train:</strong> Train Name (Train Number)</p>
+                <p><strong>From:</strong> Origin <strong>To:</strong> Destination</p>
+                <p><strong>Departure:</strong> Date and Time</p>
+                <p><strong>Class:</strong> Selected Class</p>
+            </div>
+        </section>
+
+        <section id="passenger-details">
+            <h2>Passenger Details</h2>
+            <form id="passenger-form">
+                <div id="passenger-fields">
+                    <!-- Passenger input fields will be dynamically added here -->
+                </div>
+                <button type="button" id="add-passenger-btn" class="btn">Add Passenger</button>
+            </form>
+        </section>
+
+        <section id="payment-section">
+            <h2>Payment</h2>
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" name="card-number" required>
+                </div>
+                <div class="form-group">
+                    <label for="expiry-date">Expiry Date</label>
+                    <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/YY" required>
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" name="cvv" required>
+                </div>
+                <button type="submit" class="btn">Confirm Booking</button>
+            </form>
+        </section>
+
+        <section id="booking-confirmation" style="display: none;">
+            <h2>Booking Confirmed!</h2>
+            <div id="confirmation-summary">
+                <!-- Booking summary will be shown here -->
+            </div>
+            <a href="train-search.html" class="btn">Back to Search</a>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Railway Ticket Booking</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Search - Railway Ticket Booking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Railway Ticket Booking</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="train-search.html">Train Search and Seat Availability</a></li>
+                <li><a href="booking-history.html">Booking History</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Train Search and Seat Availability</h1>
+        <form id="train-search-form">
+            <div class="form-group">
+                <label for="origin">Origin</label>
+                <input type="text" id="origin" name="origin" required>
+            </div>
+            <div class="form-group">
+                <label for="destination">Destination</label>
+                <input type="text" id="destination" name="destination" required>
+            </div>
+            <div class="form-group">
+                <label for="date">Date of Travel</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <button type="submit" class="btn">Search Trains</button>
+        </form>
+
+        <section id="search-results">
+            <h2>Available Trains</h2>
+            <div id="trains-list">
+                <!-- Train search results will be dynamically injected here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Railway Ticket Booking</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
