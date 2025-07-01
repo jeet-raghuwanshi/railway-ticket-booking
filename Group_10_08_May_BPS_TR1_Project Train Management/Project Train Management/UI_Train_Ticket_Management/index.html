@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RailConnect Pro - Train Ticket Management</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container" id="app-container">
+        <!-- Login/Register Container -->
+        <div id="auth-container">
+            <div class="auth-container" id="login-container">
+                <div class="auth-header">
+                    <div class="auth-logo">
+                        <i class="fas fa-train"></i>
+                        <h1>Train Ticket</h1>
+                    </div>
+                    <h2>Login to Your Account</h2>
+                </div>
+
+                <div id="login-error" class="auth-error">
+                    Invalid email or password. Please try again.
+                </div>
+
+                <div class="form-container">
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" class="form-control" id="login-email" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" class="form-control" id="login-password"
+                            placeholder="Enter your password">
+                    </div>
+                    <button class="btn" onclick="login()">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <div class="auth-switch">
+                        Don't have an account? <a href="#" onclick="showAuth('register')">Register Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-container" id="register-container" style="display: none;">
+                <div class="auth-header">
+                    <div class="auth-logo">
+                        <i class="fas fa-train"></i>
+                        <h1>Train Ticket</h1>
+                    </div>
+                    <h2>Create Your Account</h2>
+                </div>
+
+                <div id="register-error" class="auth-error">
+                    Please fill all fields correctly.
+                </div>
+
+                <div class="form-container">
+                    <div class="form-group">
+                        <label for="register-name">Full Name</label>
+                        <input type="text" class="form-control" id="register-name" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email Address</label>
+                        <input type="email" class="form-control" id="register-email" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-phone">Phone Number</label>
+                        <input type="tel" class="form-control" id="register-phone"
+                            placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="register-password">Password</label>
+                            <input type="password" class="form-control" id="register-password"
+                                placeholder="Create password">
+                        </div>
+                        <div class="form-group">
+                            <label for="register-confirm">Confirm Password</label>
+                            <input type="password" class="form-control" id="register-confirm"
+                                placeholder="Confirm password">
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="register()">
+                        <i class="fas fa-user-plus"></i> Register
+                    </button>
+                    <div class="auth-switch">
+                        Already have an account? <a href="#" onclick="showAuth('login')">Login Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Application (Visible after login) -->
+        <div id="main-app" style="display: none;">
+            <header>
+                <div class="logo">
+                    <i class="fas fa-train"></i>
+                    <h1>RailConnect Pro</h1>
+                </div>
+                <div style="margin-top: 10px; text-align: right;">
+                    <!-- <span id="user-greeting">Welcome, User!</span> -->
+                    <button class="btn"
+                        style="width: auto; display: inline-block; padding: 8px 15px; margin-left: 15px;"
+                        onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </header>
+
+            <!-- Navigation -->
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#" class="active" onclick="showPage('home')"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#" onclick="showPage('search')"><i class="fas fa-search"></i> Search Trains</a></li>
+                    <li><a href="#" onclick="showPage('book')"><i class="fas fa-ticket-alt"></i> Book Ticket</a></li>
+                    <li><a href="#" onclick="showPage('tickets')"><i class="fas fa-receipt"></i> View Tickets</a></li>
+                    <li><a href="#" onclick="showPage('update')"><i class="fas fa-user-cog"></i> Update Profile</a></li>
+                </ul>
+            </nav>
+
+            <!-- Home Page -->
+            <section id="home-page" class="page active">
+                <h2 class="page-title">Dashboard Overview</h2>
+
+                <div class="stats">
+                    <div class="stat-card">
+                        <i class="fas fa-train"></i>
+                        <h3 id="trains-count">128</h3>
+                        <p>Active Trains</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <h3 id="users-count">24,580</h3>
+                        <p>Happy Travelers</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-route"></i>
+                        <h3 id="routes-count">86</h3>
+                        <p>Travel Routes</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-ticket-alt"></i>
+                        <h3 id="bookings-count">18,432</h3>
+                        <p>Tickets Booked</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Search Trains Page -->
+            <section id="search-page" class="page">
+                <h2 class="page-title">Search Trains & Check Availability</h2>
+
+                <div class="form-container">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="origin">From</label>
+                            <select class="form-control" id="origin">
+                                <option value="">Select Origin</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Delhi">New Delhi</option>
+                                <option value="Kolkata">Kolkata</option>
+                                <option value="Chennai">Chennai</option>
+                                <option value="Bangalore">Bangalore</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value="Ahmedabad">Ahmedabad</option>
+                                <option value="Pune">Pune</option>
+                                <option value="Jaipur">Jaipur</option>
+                                <option value="Lucknow">Lucknow</option>
+                                <option value="Patna">Patna</option>
+                                <option value="Bhopal">Bhopal</option>
+                                <option value="Indore">Indore</option>
+                                <option value="Guwahati">Guwahati</option>
+                                <option value="Varanasi">Varanasi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="destination">To</label>
+                            <select class="form-control" id="destination">
+                                <option value="">Select Destination</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Delhi">New Delhi</option>
+                                <option value="Kolkata">Kolkata</option>
+                                <option value="Chennai">Chennai</option>
+                                <option value="Bangalore">Bangalore</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value="Ahmedabad">Ahmedabad</option>
+                                <option value="Pune">Pune</option>
+                                <option value="Jaipur">Jaipur</option>
+                                <option value="Lucknow">Lucknow</option>
+                                <option value="Patna">Patna</option>
+                                <option value="Bhopal">Bhopal</option>
+                                <option value="Indore">Indore</option>
+                                <option value="Guwahati">Guwahati</option>
+                                <option value="Varanasi">Varanasi</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Travel Date</label>
+                            <input type="date" class="form-control" id="date">
+                        </div>
+                        <div class="form-group">
+                            <label for="class">Class</label>
+                            <select class="form-control" id="class">
+                                <option value="">All Classes</option>
+                                <option value="First AC">First AC</option>
+                                <option value="Second AC">Second AC</option>
+                                <option value="Third AC">Third AC</option>
+                                <option value="Sleeper">Sleeper</option>
+                                <option value="Executive">Executive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn" onclick="searchTrains()">
+                        <i class="fas fa-search"></i> Search Trains
+                    </button>
+                </div>
+
+                <div id="search-results" class="search-results">
+                    <!-- Results will be populated here -->
+                </div>
+            </section>
+
+            <!-- Book Ticket Page -->
+            <section id="book-page" class="page">
+                <h2 class="page-title">Book Your Train Ticket</h2>
+
+                <div class="form-container">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="book-origin">From</label>
+                            <select class="form-control" id="book-origin">
+                                <option value="">Select Origin</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Delhi">New Delhi</option>
+                                <option value="Kolkata">Kolkata</option>
+                                <option value="Chennai">Chennai</option>
+                                <option value="Bangalore">Bangalore</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value="Ahmedabad">Ahmedabad</option>
+                                <option value="Pune">Pune</option>
+                                <option value="Jaipur">Jaipur</option>
+                                <option value="Lucknow">Lucknow</option>
+                                <option value="Patna">Patna</option>
+                                <option value="Bhopal">Bhopal</option>
+                                <option value="Indore">Indore</option>
+                                <option value="Guwahati">Guwahati</option>
+                                <option value="Varanasi">Varanasi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-destination">To</label>
+                            <select class="form-control" id="book-destination">
+                                <option value="">Select Destination</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Delhi">New Delhi</option>
+                                <option value="Kolkata">Kolkata</option>
+                                <option value="Chennai">Chennai</option>
+                                <option value="Bangalore">Bangalore</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value="Ahmedabad">Ahmedabad</option>
+                                <option value="Pune">Pune</option>
+                                <option value="Jaipur">Jaipur</option>
+                                <option value="Lucknow">Lucknow</option>
+                                <option value="Patna">Patna</option>
+                                <option value="Bhopal">Bhopal</option>
+                                <option value="Indore">Indore</option>
+                                <option value="Guwahati">Guwahati</option>
+                                <option value="Varanasi">Varanasi</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="book-date">Travel Date</label>
+                            <input type="date" class="form-control" id="book-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="book-class">Class</label>
+                            <select class="form-control" id="book-class">
+                                <option value="">Select Class</option>
+                                <option value="First AC">First AC</option>
+                                <option value="Second AC">Second AC</option>
+                                <option value="Third AC">Third AC</option>
+                                <option value="Sleeper">Sleeper</option>
+                                <option value="Executive">Executive</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <h3 style="margin: 25px 0 15px; color: var(--primary);">Passenger Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="passenger-name">Full Name</label>
+                            <input type="text" class="form-control" id="passenger-name" placeholder="Enter full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="passenger-age">Age</label>
+                            <input type="number" class="form-control" id="passenger-age" placeholder="Enter age">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="passenger-email">Email</label>
+                            <input type="email" class="form-control" id="passenger-email" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="passenger-phone">Phone</label>
+                            <input type="tel" class="form-control" id="passenger-phone"
+                                placeholder="Enter phone number">
+                        </div>
+                    </div>
+
+                    <button class="btn btn-secondary" onclick="bookTicket()">
+                        <i class="fas fa-check-circle"></i> Confirm Booking
+                    </button>
+                </div>
+            </section>
+
+            <!-- View Tickets Page -->
+            <section id="tickets-page" class="page">
+                <h2 class="page-title">Your Booking History</h2>
+
+                <div class="history-filters">
+                    <div class="form-group" style="flex: 2;">
+                        <input type="text" class="form-control" id="booking-search"
+                            placeholder="Search by train name or PNR">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="booking-status">
+                            <option>All Status</option>
+                            <option>Confirmed</option>
+                            <option>Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" class="form-control" id="booking-date">
+                    </div>
+                    <button class="btn" onclick="filterBookings()">Search</button>
+                    <button class="btn" style="background: #e0e0e0; color: #333;"
+                        onclick="resetFilters()">Reset</button>
+                </div>
+
+                <div id="bookings-container">
+                    <!-- Bookings will be populated here -->
+                </div>
+            </section>
+
+            <!-- Update Profile Page -->
+            <section id="update-page" class="page">
+                <h2 class="page-title">Update Your Profile</h2>
+
+                <div class="form-container">
+                    <div class="form-group">
+                        <label for="update-name">Full Name</label>
+                        <input type="text" class="form-control" id="update-name" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="update-email">Email Address</label>
+                            <input type="email" class="form-control" id="update-email" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="update-phone">Phone Number</label>
+                            <input type="tel" class="form-control" id="update-phone"
+                                placeholder="Enter your phone number">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-address">Address</label>
+                        <textarea class="form-control" id="update-address" rows="3"
+                            placeholder="Enter your address"></textarea>
+                    </div>
+                    <h3 style="margin: 25px 0 15px; color: var(--primary);">Change Password</h3>
+                    <div class="form-group">
+                        <label for="update-password">New Password</label>
+                        <input type="password" class="form-control" id="update-password"
+                            placeholder="Enter new password">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-confirm">Confirm Password</label>
+                        <input type="password" class="form-control" id="update-confirm"
+                            placeholder="Confirm new password">
+                    </div>
+                    <button class="btn" onclick="updateDetails()">
+                        <i class="fas fa-save"></i> Update Profile
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
